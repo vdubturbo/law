@@ -14,11 +14,15 @@ const navLinks = [
   { href: "/direction-d/contact", label: "Contact" },
 ];
 
+/**
+ * Direction A = this layout (the default).
+ * Directions B/C/D map to internal variant keys A/B/C respectively.
+ */
 const directionOptions = [
-  { key: "A", label: "Direction A" },
-  { key: "B", label: "Direction B" },
-  { key: "C", label: "Direction C" },
-  { key: "D", label: "Direction D" },
+  { key: "A", label: "Direction A", variantKey: null },
+  { key: "B", label: "Direction B", variantKey: "A" as VariantKey },
+  { key: "C", label: "Direction C", variantKey: "B" as VariantKey },
+  { key: "D", label: "Direction D", variantKey: "C" as VariantKey },
 ];
 
 export default function DirectionDHeader() {
@@ -26,9 +30,9 @@ export default function DirectionDHeader() {
   const router = useRouter();
   const { setVariant } = useVariant();
 
-  const handleDirectionClick = (key: string) => {
-    if (key === "D") return;
-    setVariant(key as VariantKey);
+  const handleDirectionClick = (option: typeof directionOptions[number]) => {
+    if (option.variantKey === null) return; // Already on Direction A
+    setVariant(option.variantKey);
     router.push("/variants");
   };
 
@@ -50,12 +54,12 @@ export default function DirectionDHeader() {
           role="tablist"
           aria-label="Design direction switcher"
         >
-          {directionOptions.map(({ key, label }) => {
-            const isActive = key === "D";
+          {directionOptions.map((option) => {
+            const isActive = option.variantKey === null;
             return (
               <button
-                key={key}
-                onClick={() => handleDirectionClick(key)}
+                key={option.key}
+                onClick={() => handleDirectionClick(option)}
                 className="relative px-4 py-1.5 text-xs font-medium tracking-wide transition-all duration-300"
                 style={{
                   color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.5)",
@@ -71,7 +75,7 @@ export default function DirectionDHeader() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   />
                 )}
-                <span className="relative z-10">{label}</span>
+                <span className="relative z-10">{option.label}</span>
               </button>
             );
           })}

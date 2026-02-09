@@ -60,72 +60,67 @@ const CasesPage: NextPageWithLayout = () => {
         <title>Case Results | Wade, Grunberg &amp; Wilson</title>
       </Head>
 
-      {/* Page Header */}
-      <section
-        className="py-20 md:py-28 px-6 md:px-10"
-        style={{ backgroundColor: "var(--d-navy)" }}
-      >
-        <div className="max-w-[1120px] mx-auto">
-          <motion.span
-            {...fadeIn(0)}
-            className="inline-block px-3 py-1 text-xs font-medium tracking-wider uppercase rounded-full mb-6"
-            style={{
-              border: "1px solid var(--d-accent)",
-              color: "var(--d-accent)",
-              fontFamily: "'Inter', sans-serif",
-            }}
-          >
-            Case Results
-          </motion.span>
-          <motion.h1
-            {...fadeIn(0.1)}
-            className="text-[34px] md:text-[48px] lg:text-[56px] font-semibold text-white leading-[1.1]"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Results That Speak
-          </motion.h1>
-          <motion.p
-            {...fadeIn(0.2)}
-            className="mt-6 text-base md:text-lg text-white/65 max-w-lg leading-relaxed"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            A selection of outcomes achieved for our clients across practice
-            areas.
-          </motion.p>
-        </div>
-      </section>
+      {/* Page Header + Disclaimer + Grid (navy bleeds behind top of cards) */}
+      <div style={{ backgroundColor: "var(--d-bg)" }}>
+        <div
+          style={{
+            background:
+              "linear-gradient(to bottom, var(--d-navy) 0%, var(--d-navy) 480px, var(--d-bg) 480px)",
+          }}
+        >
+          <section className="pt-20 md:pt-28 pb-10 px-6 md:px-10">
+            <div className="max-w-[1120px] mx-auto">
+              <motion.span
+                {...fadeIn(0)}
+                className="inline-block px-3 py-1 text-xs font-medium tracking-wider uppercase rounded-full mb-6"
+                style={{
+                  border: "1px solid var(--d-accent)",
+                  color: "var(--d-accent)",
+                  fontFamily: "'Inter', sans-serif",
+                }}
+              >
+                Case Results
+              </motion.span>
+              <motion.h1
+                {...fadeIn(0.1)}
+                className="text-[34px] md:text-[48px] lg:text-[56px] font-semibold text-white leading-[1.1]"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Results That Speak
+              </motion.h1>
+              <motion.p
+                {...fadeIn(0.2)}
+                className="mt-6 text-base md:text-lg text-white/65 max-w-lg leading-relaxed"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                A selection of outcomes achieved for our clients across practice
+                areas.
+              </motion.p>
 
-      {/* Disclaimer */}
-      <section
-        className="px-6 md:px-10 pt-12"
-        style={{ backgroundColor: "var(--d-bg)" }}
-      >
-        <div className="max-w-[1120px] mx-auto">
-          <p
-            className="text-xs leading-relaxed"
-            style={{
-              color: "var(--d-muted)",
-              fontFamily: "'Inter', sans-serif",
-            }}
-          >
-            Prior results do not guarantee a similar outcome. Every case is
-            different and must be evaluated on its own facts and circumstances.
-          </p>
-        </div>
-      </section>
+              {/* Disclaimer */}
+              <motion.p
+                {...fadeIn(0.25)}
+                className="mt-10 text-xs leading-relaxed text-white/40"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Prior results do not guarantee a similar outcome. Every case is
+                different and must be evaluated on its own facts and
+                circumstances.
+              </motion.p>
+            </div>
+          </section>
 
-      {/* Case Results Grid */}
-      <section
-        className="py-16 md:py-24 px-6 md:px-10"
-        style={{ backgroundColor: "var(--d-bg)" }}
-      >
-        <div className="max-w-[1120px] mx-auto">
-          <CaseResultsGrid cases={caseResults} />
+          {/* Case Results Grid */}
+          <section className="pt-8 pb-16 md:pb-24 px-6 md:px-10">
+            <div className="max-w-[1120px] mx-auto">
+              <CaseResultsGrid cases={caseResults} />
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       {/* Divider */}
       <div className="max-w-[1120px] mx-auto px-6 md:px-10">
