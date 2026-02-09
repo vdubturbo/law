@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const quickLinks = [
   { href: "/direction-d/about", label: "About" },
@@ -26,9 +27,23 @@ export default function DirectionDFooter() {
               Wade, Grunberg{" "}
               <span style={{ color: "var(--d-accent)" }}>&amp;</span> Wilson
             </h3>
-            <p className="text-sm text-white/60 leading-relaxed">
+            <p className="text-sm text-white/60 leading-relaxed mb-4">
               Boutique litigation counsel in Atlanta, Georgia.
             </p>
+            <a
+              href="https://bestlawyers.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block transition-opacity duration-300 hover:opacity-80"
+            >
+              <Image
+                src="/bestlawyers.png"
+                alt="Best Lawyers"
+                width={120}
+                height={36}
+                className="brightness-0 invert opacity-60"
+              />
+            </a>
           </div>
 
           {/* Contact */}

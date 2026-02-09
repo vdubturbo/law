@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import DirectionDLayout from "@/components/direction-d/DirectionDLayout";
 import DirectionDHero from "@/components/direction-d/DirectionDHero";
@@ -62,8 +63,23 @@ const HomePage: NextPageWithLayout = () => {
             >
               Recognition
             </motion.span>
+            <motion.div {...fadeIn(0.1)} className="mb-6">
+              <a
+                href="https://bestlawyers.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block transition-opacity duration-300 hover:opacity-80"
+              >
+                <Image
+                  src="/bestlawyers.png"
+                  alt="Best Lawyers"
+                  width={200}
+                  height={61}
+                />
+              </a>
+            </motion.div>
             <motion.p
-              {...fadeIn(0.1)}
+              {...fadeIn(0.15)}
               className="text-[22px] md:text-[28px] font-semibold tracking-tight leading-[1.2]"
               style={{
                 fontFamily: "'Playfair Display', serif",

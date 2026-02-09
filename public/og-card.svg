@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;family=Inter:wght@300;400&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1B2A3D"/>
+
+  <!-- Top brass accent line -->
+  <rect x="0" y="48" width="1200" height="2" fill="#B08D57"/>
+
+  <!-- Firm name -->
+  <text
+    x="600"
+    y="278"
+    text-anchor="middle"
+    font-family="'Playfair Display', 'Georgia', 'Times New Roman', serif"
+    font-weight="600"
+    font-size="56"
+    fill="#FFFFFF"
+    letter-spacing="2"
+  >Wade, Grunberg &amp; Wilson</text>
+
+  <!-- Tagline -->
+  <text
+    x="600"
+    y="338"
+    text-anchor="middle"
+    font-family="'Inter', 'Helvetica Neue', 'Arial', sans-serif"
+    font-weight="300"
+    font-size="24"
+    fill="#FFFFFF"
+    opacity="0.6"
+    letter-spacing="3"
+  >Complex Litigation. Clear Strategy.</text>
+
+  <!-- Location -->
+  <text
+    x="600"
+    y="388"
+    text-anchor="middle"
+    font-family="'Inter', 'Helvetica Neue', 'Arial', sans-serif"
+    font-weight="400"
+    font-size="18"
+    fill="#FFFFFF"
+    opacity="0.4"
+    letter-spacing="4"
+  >Atlanta, Georgia</text>
+
+  <!-- Bottom brass accent line -->
+  <rect x="0" y="580" width="1200" height="2" fill="#B08D57"/>
+</svg>

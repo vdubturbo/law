@@ -14,7 +14,21 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        <meta name="description" content="Wade, Grunberg & Wilson - Atlanta Law Firm" />
+        <meta name="description" content="Wade, Grunberg & Wilson — Boutique litigation counsel in Atlanta. Complex litigation, clear strategy." />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Wade, Grunberg & Wilson | Atlanta Law Firm" />
+        <meta property="og:description" content="Boutique litigation counsel in Atlanta. Complex litigation, clear strategy." />
+        <meta property="og:image" content="/og-card.svg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Wade, Grunberg & Wilson | Atlanta Law Firm" />
+        <meta name="twitter:description" content="Boutique litigation counsel in Atlanta. Complex litigation, clear strategy." />
+        <meta name="twitter:image" content="/og-card.svg" />
       </Head>
       <body>
         <Main />

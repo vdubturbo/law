@@ -197,17 +197,20 @@ export default function Variants() {
         style={{ backgroundColor: `${theme.colors.accent}1A` }}
       >
         <div className="max-w-4xl mx-auto text-center">
-          <div
-            className="inline-flex items-center justify-center w-28 h-28 md:w-[120px] md:h-[120px] rounded-full mb-8 shadow-card opacity-0 animate-fade-in"
-            style={{ backgroundColor: theme.colors.accent }}
+          <a
+            href="https://bestlawyers.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mb-8 opacity-0 animate-fade-in transition-opacity duration-300 hover:opacity-80"
           >
-            <span
-              className="text-white text-3xl md:text-4xl font-bold"
-              style={{ fontFamily: theme.fonts.heading }}
-            >
-              BL
-            </span>
-          </div>
+            <Image
+              src="/bestlawyers.png"
+              alt="Best Lawyers"
+              width={180}
+              height={55}
+              className="mx-auto"
+            />
+          </a>
           <p
             className="text-lg md:text-xl font-medium opacity-0 animate-fade-in delay-200"
             style={{

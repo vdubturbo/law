@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useVariant } from "@/context/VariantContext";
 
 const quickLinks = [
@@ -85,6 +86,20 @@ export default function Footer() {
               Recognition
             </h4>
             <div className="space-y-4 text-small">
+              <a
+                href="https://bestlawyers.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mb-2 transition-opacity duration-300 hover:opacity-80"
+              >
+                <Image
+                  src="/bestlawyers.png"
+                  alt="Best Lawyers"
+                  width={140}
+                  height={42}
+                  className="brightness-0 invert opacity-80"
+                />
+              </a>
               <p>
                 Recognized by <span className="text-white font-semibold">Best Lawyers</span> in
                 America for excellence in legal representation.
