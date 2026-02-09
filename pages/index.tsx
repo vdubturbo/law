@@ -45,8 +45,8 @@ export default function Home() {
         style={{ height: "clamp(300px, 50vw, 500px)" }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1554224311-beee415c15ec?w=1200&h=400&fit=crop"
-          alt="Modern office building"
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=400&fit=crop"
+          alt="Modern glass skyscraper"
           fill
           priority
           sizes="100vw"
