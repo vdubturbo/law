@@ -6,11 +6,11 @@ import { useVariant } from "@/context/VariantContext";
 import type { VariantKey } from "@/utils/variants";
 
 const navLinks = [
-  { href: "/direction-d", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/team", label: "Team" },
-  { href: "/practices", label: "Practice Areas" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/direction-d/about", label: "About" },
+  { href: "/direction-d/team", label: "Team" },
+  { href: "/direction-d/practices", label: "Practice Areas" },
+  { href: "/direction-d/contact", label: "Contact" },
 ];
 
 const directionOptions = [
@@ -28,7 +28,7 @@ export default function DirectionDHeader() {
   const handleDirectionClick = (key: string) => {
     if (key === "D") return;
     setVariant(key as VariantKey);
-    router.push("/");
+    router.push("/variants");
   };
 
   return (
@@ -92,7 +92,7 @@ export default function DirectionDHeader() {
           <div className="flex items-center justify-between h-20">
             {/* Wordmark */}
             <Link
-              href="/direction-d"
+              href="/"
               className="flex items-center group"
             >
               <span
@@ -107,7 +107,10 @@ export default function DirectionDHeader() {
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => {
-                const isActive = router.pathname === link.href;
+                const isActive =
+                  link.href === "/"
+                    ? router.pathname === "/"
+                    : router.pathname.startsWith(link.href);
                 return (
                   <Link
                     key={link.href}
@@ -138,7 +141,7 @@ export default function DirectionDHeader() {
                 );
               })}
               <Link
-                href="/contact"
+                href="/direction-d/contact"
                 className="ml-2 px-5 py-2 text-xs font-semibold tracking-wider transition-all duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57]"
                 style={{
                   backgroundColor: "var(--d-accent)",
@@ -204,7 +207,7 @@ export default function DirectionDHeader() {
                   </Link>
                 ))}
                 <Link
-                  href="/contact"
+                  href="/direction-d/contact"
                   onClick={() => setMobileOpen(false)}
                   className="inline-block mt-2 px-5 py-2.5 text-xs font-semibold tracking-wider text-center"
                   style={{

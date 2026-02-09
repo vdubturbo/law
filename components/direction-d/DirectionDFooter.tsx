@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const quickLinks = [
-  { href: "/about", label: "About" },
-  { href: "/team", label: "Team" },
-  { href: "/practices", label: "Practice Areas" },
-  { href: "/contact", label: "Contact" },
+  { href: "/direction-d/about", label: "About" },
+  { href: "/direction-d/team", label: "Team" },
+  { href: "/direction-d/practices", label: "Practice Areas" },
+  { href: "/direction-d/contact", label: "Contact" },
 ];
 
 export default function DirectionDFooter() {

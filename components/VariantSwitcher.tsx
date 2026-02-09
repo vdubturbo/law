@@ -52,7 +52,7 @@ export default function VariantSwitcher() {
           );
         })}
         <button
-          onClick={() => router.push("/direction-d")}
+          onClick={() => router.push("/")}
           className="relative px-4 py-1.5 text-xs font-medium tracking-wide transition-all duration-300"
           style={{ color: "rgba(255,255,255,0.5)" }}
           role="tab"

@@ -1,37 +1,24 @@
+import type { ReactElement } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-import { useVariant } from "@/context/VariantContext";
+import { motion, useReducedMotion } from "framer-motion";
+import DirectionDLayout from "@/components/direction-d/DirectionDLayout";
+import DirectionDHero from "@/components/direction-d/DirectionDHero";
+import DirectionDAbout from "@/components/direction-d/DirectionDAbout";
+import DirectionDPracticeAreas from "@/components/direction-d/DirectionDPracticeAreas";
+import type { NextPageWithLayout } from "./_app";
 
-const practiceAreas = [
-  {
-    title: "Defamation",
-    slug: "defamation",
-    description:
-      "Wade, Grunberg & Wilson focuses on safeguarding your reputation from false and defamatory attacks. Our lawyers have exceptional experience in the field of defamation, having represented companies and individuals caught up in media crises. Your reputation has no geographical bounds\u2014neither does our practice.",
-  },
-  {
-    title: "Business Litigation",
-    slug: "business-litigation",
-    description:
-      "We are experienced litigating many types of business and commercial disputes. From contract disputes to theft of trade secrets, breach of fiduciary duty, and fraud claims, our lawyers can handle anything from small disputes to bet-the-company litigation.",
-  },
-  {
-    title: "Trust & Estate Litigation",
-    slug: "trust-estate-litigation",
-    description:
-      "Wade, Grunberg & Wilson is one of the few firms in the Southeast with a focus on trust and estate litigation. Our lawyers have a lengthy track record of representing clients in a wide range of fiduciary litigation and contentious trust disputes.",
-  },
-  {
-    title: "Personal Injury",
-    slug: "personal-injury",
-    description:
-      "We strive to help people injured by the wrongdoing of others. From physical injuries to civil rights violations, we have the experience to get you the recovery you deserve. We handle motor vehicle, trucking, premises liability, and other personal injury claims.",
-  },
-];
+const HomePage: NextPageWithLayout = () => {
+  const shouldReduceMotion = useReducedMotion();
 
-export default function Home() {
-  const { theme } = useVariant();
+  const fadeIn = (delay: number = 0) =>
+    shouldReduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 16 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6, delay, ease: "easeOut" },
+        };
 
   return (
     <>
@@ -39,201 +26,63 @@ export default function Home() {
         <title>Wade, Grunberg &amp; Wilson | Atlanta Law Firm</title>
       </Head>
 
-      {/* Hero Section */}
+      <DirectionDHero />
+
+      <div className="max-w-[1120px] mx-auto px-6 md:px-10">
+        <hr style={{ borderColor: "var(--d-border)", borderTopWidth: "1px" }} />
+      </div>
+
+      <DirectionDAbout />
+
+      <div className="max-w-[1120px] mx-auto px-6 md:px-10">
+        <hr style={{ borderColor: "var(--d-border)", borderTopWidth: "1px" }} />
+      </div>
+
+      <DirectionDPracticeAreas />
+
+      <div className="max-w-[1120px] mx-auto px-6 md:px-10">
+        <hr style={{ borderColor: "var(--d-border)", borderTopWidth: "1px" }} />
+      </div>
+
+      {/* Testimonial */}
       <section
-        className="relative overflow-hidden"
-        style={{ height: "clamp(300px, 50vw, 500px)" }}
+        className="py-20 md:py-28 px-6 md:px-10"
+        style={{ backgroundColor: "var(--d-bg)" }}
       >
-        <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=400&fit=crop"
-          alt="Modern glass skyscraper"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div
-          className="absolute inset-0"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
-        />
-        <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
-          <h1
-            className="text-4xl md:text-[3.5rem] lg:text-display font-bold text-white mb-6 animate-fade-in"
-            style={{
-              fontFamily: theme.fonts.heading,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Making Complex Simple
-          </h1>
-          <p
-            className="text-base md:text-xl text-white/85 max-w-2xl mx-auto mb-10 opacity-0 animate-fade-in delay-200"
-            style={{
-              fontFamily: theme.fonts.body,
-              lineHeight: 1.7,
-            }}
-          >
-            Wade, Grunberg &amp; Wilson, LLC is a boutique firm dedicated to
-            achieving the results you deserve in complex litigation.
-          </p>
-          <div className="opacity-0 animate-fade-in delay-300">
-            <Link
-              href="/about"
-              className="btn-primary"
+        <div className="max-w-[1120px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div>
+            <motion.span
+              {...fadeIn(0)}
+              className="inline-block px-3 py-1 text-xs font-medium tracking-wider uppercase rounded-full mb-6"
               style={{
-                backgroundColor: theme.colors.accent,
-                fontFamily: theme.fonts.body,
+                border: "1px solid var(--d-accent)",
+                color: "var(--d-accent)",
+                fontFamily: "'Inter', sans-serif",
               }}
             >
-              Learn More
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* About Callout Section */}
-      <section
-        className="variant-transition"
-        style={{ backgroundColor: theme.colors.background }}
-      >
-        <div className="max-w-[800px] mx-auto px-6 py-12 md:py-16 text-center">
-          <h2
-            className="text-h2 md:text-h1 font-bold mb-6 opacity-0 animate-slide-up"
-            style={{
-              fontFamily: theme.fonts.heading,
-              color: theme.colors.primary,
-            }}
-          >
-            About WGW
-          </h2>
-          <p
-            className="text-body-lg mb-8 opacity-0 animate-slide-up delay-100"
-            style={{
-              color: theme.colors.muted,
-              fontFamily: theme.fonts.body,
-              lineHeight: 1.8,
-            }}
-          >
-            At Wade, Grunberg &amp; Wilson, we believe every client deserves the
-            highest level of legal representation. Our boutique approach means
-            you get the personal attention of a small firm with the capabilities
-            and results of a large one. We combine decades of courtroom
-            experience with a modern, strategic mindset to deliver outcomes that
-            matter.
-          </p>
-          <div className="opacity-0 animate-slide-up delay-200">
-            <Link
-              href="/about"
-              className="btn-primary"
+              Recognition
+            </motion.span>
+            <motion.p
+              {...fadeIn(0.1)}
+              className="text-[22px] md:text-[28px] font-semibold tracking-tight leading-[1.2]"
               style={{
-                backgroundColor: theme.colors.accent,
-                fontFamily: theme.fonts.body,
+                fontFamily: "'Playfair Display', serif",
+                color: "var(--d-ink)",
               }}
             >
-              Learn More
-            </Link>
+              Recognized by Best Lawyers&reg; in America since 2021
+            </motion.p>
           </div>
-        </div>
-      </section>
-
-      {/* Practice Areas Grid */}
-      <section className="py-12 md:py-20 px-6 md:px-12 lg:px-20">
-        <div className="max-w-[1200px] mx-auto">
-          <h2
-            className="text-h2 md:text-h1 font-bold mb-4 text-center opacity-0 animate-slide-up"
-            style={{
-              fontFamily: theme.fonts.heading,
-              color: theme.colors.primary,
-            }}
-          >
-            Practice Areas
-          </h2>
-          <p
-            className="text-body-lg text-center mb-12 md:mb-16 max-w-2xl mx-auto opacity-0 animate-slide-up delay-100"
-            style={{ color: theme.colors.muted }}
-          >
-            Focused expertise in the areas of law that matter most to our
-            clients.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {practiceAreas.map((area, i) => (
-              <div
-                key={area.slug}
-                className="p-8 bg-white shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 variant-transition opacity-0 animate-slide-up"
-                style={{ animationDelay: `${(i + 1) * 100 + 100}ms` }}
-              >
-                <h3
-                  className="text-h3 md:text-[1.75rem] font-bold mb-4"
-                  style={{
-                    fontFamily: theme.fonts.heading,
-                    color: theme.colors.primary,
-                  }}
-                >
-                  {area.title}
-                </h3>
-                <p
-                  className="text-body mb-6"
-                  style={{ color: theme.colors.muted, lineHeight: 1.7 }}
-                >
-                  {area.description}
-                </p>
-                <Link
-                  href={`/practices/${area.slug}`}
-                  className="text-small font-semibold tracking-wide transition-all duration-300 hover:underline"
-                  style={{ color: theme.colors.accent }}
-                >
-                  Learn More &rarr;
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Best Lawyers Badge Section */}
-      <section
-        className="py-12 md:py-20 px-6 variant-transition"
-        style={{ backgroundColor: `${theme.colors.accent}1A` }}
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <div
-            className="inline-flex items-center justify-center w-28 h-28 md:w-[120px] md:h-[120px] rounded-full mb-8 shadow-card opacity-0 animate-fade-in"
-            style={{ backgroundColor: theme.colors.accent }}
-          >
-            <span
-              className="text-white text-3xl md:text-4xl font-bold"
-              style={{ fontFamily: theme.fonts.heading }}
-            >
-              BL
-            </span>
-          </div>
-          <p
-            className="text-lg md:text-xl font-medium opacity-0 animate-fade-in delay-200"
-            style={{
-              color: theme.colors.primary,
-              fontFamily: theme.fonts.body,
-            }}
-          >
-            Recognized by{" "}
-            <span className="font-bold">Best Lawyers</span>&reg; since 2021
-          </p>
-        </div>
-      </section>
-
-      {/* Testimonial Section */}
-      <section className="py-12 md:py-20 px-6">
-        <div className="max-w-[600px] mx-auto">
-          <blockquote
-            className="relative pl-8 opacity-0 animate-fade-in-left"
-            style={{ borderLeft: `4px solid ${theme.colors.accent}` }}
+          <motion.blockquote
+            {...fadeIn(0.2)}
+            className="relative pl-6"
+            style={{ borderLeft: "3px solid var(--d-accent)" }}
           >
             <p
-              className="text-xl md:text-2xl italic mb-6"
+              className="text-lg md:text-xl italic leading-relaxed mb-4"
               style={{
-                color: theme.colors.accent,
-                fontFamily: theme.fonts.body,
-                lineHeight: 1.6,
+                color: "var(--d-muted)",
+                fontFamily: "'EB Garamond', serif",
               }}
             >
               &ldquo;Look no further than Wade, Grunberg &amp; Wilson. They are
@@ -241,47 +90,60 @@ export default function Home() {
               the country.&rdquo;
             </p>
             <cite
-              className="text-small font-medium not-italic tracking-wider uppercase"
-              style={{ color: theme.colors.primary }}
+              className="text-sm font-medium not-italic tracking-wider uppercase"
+              style={{
+                color: "var(--d-ink)",
+                fontFamily: "'Inter', sans-serif",
+              }}
             >
               &mdash; Client
             </cite>
-          </blockquote>
+          </motion.blockquote>
         </div>
       </section>
 
-      {/* Call-to-Action Section */}
+      {/* CTA */}
       <section
-        className="py-12 md:py-20 px-6 variant-transition"
-        style={{ backgroundColor: theme.colors.primary }}
+        className="py-20 md:py-28 px-6 md:px-10"
+        style={{ backgroundColor: "var(--d-navy)" }}
       >
-        <div className="max-w-4xl mx-auto text-center">
-          <h2
-            className="text-h2 md:text-h1 font-bold text-white mb-4 opacity-0 animate-slide-up"
-            style={{ fontFamily: theme.fonts.heading }}
+        <div className="max-w-[1120px] mx-auto text-center">
+          <motion.h2
+            {...fadeIn(0)}
+            className="text-[28px] md:text-[36px] font-semibold text-white tracking-tight mb-4"
+            style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Ready to Move Forward?
-          </h2>
-          <p
-            className="text-body-lg text-white/70 mb-10 opacity-0 animate-slide-up delay-100"
-            style={{ fontFamily: theme.fonts.body }}
+          </motion.h2>
+          <motion.p
+            {...fadeIn(0.1)}
+            className="text-base text-white/60 mb-10 max-w-md mx-auto leading-relaxed"
+            style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Contact us today for a consultation
-          </p>
-          <div className="opacity-0 animate-slide-up delay-200">
+            Every case begins with a conversation. Reach out to discuss how we
+            can help.
+          </motion.p>
+          <motion.div {...fadeIn(0.2)}>
             <Link
-              href="/contact"
-              className="btn-primary"
+              href="/direction-d/contact"
+              className="inline-block px-8 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57]"
               style={{
-                backgroundColor: theme.colors.accent,
-                fontFamily: theme.fonts.body,
+                backgroundColor: "var(--d-accent)",
+                color: "var(--d-navy)",
+                fontFamily: "'Inter', sans-serif",
               }}
             >
-              Get in Touch
+              Begin a Conversation
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>
   );
-}
+};
+
+HomePage.getLayout = (page: ReactElement) => (
+  <DirectionDLayout>{page}</DirectionDLayout>
+);
+
+export default HomePage;
