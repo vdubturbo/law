@@ -1,11 +1,62 @@
 import type { ReactElement } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import { motion, useReducedMotion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import DirectionDLayout from "@/components/direction-d/DirectionDLayout";
 import type { NextPageWithLayout } from "../_app";
 
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().optional(),
+  practiceArea: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
+const practiceOptions = [
+  "Defamation & Reputation Defense",
+  "Complex Business Disputes",
+  "Trust & Estate Litigation",
+  "Personal Injury",
+  "Civil Rights Litigation",
+  "Appellate Advocacy",
+  "Other / Not Sure",
+];
+
+const inputStyle = {
+  backgroundColor: "var(--d-bg)",
+  border: "1px solid var(--d-border)",
+  color: "var(--d-ink)",
+  fontFamily: "'Inter', sans-serif",
+};
+
+const labelStyle = {
+  color: "var(--d-muted)",
+  fontFamily: "'Inter', sans-serif",
+};
+
 const ContactPage: NextPageWithLayout = () => {
   const shouldReduceMotion = useReducedMotion();
+  const [submitted, setSubmitted] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (_data: ContactFormData) => {
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    setSubmitted(true);
+  };
 
   const fadeIn = (delay: number = 0) =>
     shouldReduceMotion
@@ -147,6 +198,20 @@ const ContactPage: NextPageWithLayout = () => {
                     info@wgwlawfirm.com
                   </a>
                 </div>
+
+                <div
+                  className="mt-8 p-5 text-xs leading-relaxed"
+                  style={{
+                    backgroundColor: "var(--d-surface)",
+                    border: "1px solid var(--d-border)",
+                    color: "var(--d-muted)",
+                    fontFamily: "'Inter', sans-serif",
+                  }}
+                >
+                  Contacting our firm does not create an attorney-client
+                  relationship. Please do not send confidential information until
+                  a formal engagement is established.
+                </div>
               </motion.div>
             </div>
 
@@ -168,107 +233,144 @@ const ContactPage: NextPageWithLayout = () => {
               >
                 Send Us a Message
               </h3>
-              <div className="space-y-4">
-                <div>
-                  <label
-                    className="block text-xs font-medium tracking-wider uppercase mb-2"
+
+              {submitted ? (
+                <div className="py-12 text-center">
+                  <p
+                    className="text-lg font-semibold mb-2"
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      color: "var(--d-ink)",
+                    }}
+                  >
+                    Thank you for reaching out.
+                  </p>
+                  <p
+                    className="text-sm"
                     style={{
                       color: "var(--d-muted)",
                       fontFamily: "'Inter', sans-serif",
                     }}
                   >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57]"
-                    style={{
-                      backgroundColor: "var(--d-bg)",
-                      border: "1px solid var(--d-border)",
-                      color: "var(--d-ink)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                    placeholder="Your name"
-                  />
+                    We will be in touch within one business day.
+                  </p>
                 </div>
-                <div>
-                  <label
-                    className="block text-xs font-medium tracking-wider uppercase mb-2"
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                  <div>
+                    <label
+                      className="block text-xs font-medium tracking-wider uppercase mb-2"
+                      style={labelStyle}
+                    >
+                      Name *
+                    </label>
+                    <input
+                      type="text"
+                      {...register("name")}
+                      className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57]"
+                      style={inputStyle}
+                      placeholder="Your name"
+                    />
+                    {errors.name && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      className="block text-xs font-medium tracking-wider uppercase mb-2"
+                      style={labelStyle}
+                    >
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      {...register("email")}
+                      className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57]"
+                      style={inputStyle}
+                      placeholder="your@email.com"
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      className="block text-xs font-medium tracking-wider uppercase mb-2"
+                      style={labelStyle}
+                    >
+                      Phone
+                    </label>
+                    <input
+                      type="tel"
+                      {...register("phone")}
+                      className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57]"
+                      style={inputStyle}
+                      placeholder="(555) 555-5555"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      className="block text-xs font-medium tracking-wider uppercase mb-2"
+                      style={labelStyle}
+                    >
+                      Practice Area
+                    </label>
+                    <select
+                      {...register("practiceArea")}
+                      className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57] appearance-none"
+                      style={inputStyle}
+                    >
+                      <option value="">Select a practice area</option>
+                      {practiceOptions.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      className="block text-xs font-medium tracking-wider uppercase mb-2"
+                      style={labelStyle}
+                    >
+                      Message *
+                    </label>
+                    <textarea
+                      rows={5}
+                      {...register("message")}
+                      className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 resize-none focus:ring-2 focus:ring-[#B08D57]"
+                      style={inputStyle}
+                      placeholder="Tell us about your matter..."
+                    />
+                    {errors.message && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.message.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 hover:brightness-110 disabled:opacity-60"
                     style={{
-                      color: "var(--d-muted)",
+                      backgroundColor: "var(--d-accent)",
+                      color: "var(--d-navy)",
                       fontFamily: "'Inter', sans-serif",
                     }}
                   >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57]"
-                    style={{
-                      backgroundColor: "var(--d-bg)",
-                      border: "1px solid var(--d-border)",
-                      color: "var(--d-ink)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label
-                    className="block text-xs font-medium tracking-wider uppercase mb-2"
-                    style={{
-                      color: "var(--d-muted)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  >
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 focus:ring-2 focus:ring-[#B08D57]"
-                    style={{
-                      backgroundColor: "var(--d-bg)",
-                      border: "1px solid var(--d-border)",
-                      color: "var(--d-ink)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                    placeholder="(555) 555-5555"
-                  />
-                </div>
-                <div>
-                  <label
-                    className="block text-xs font-medium tracking-wider uppercase mb-2"
-                    style={{
-                      color: "var(--d-muted)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    className="w-full px-4 py-3 text-sm outline-none transition-all duration-300 resize-none focus:ring-2 focus:ring-[#B08D57]"
-                    style={{
-                      backgroundColor: "var(--d-bg)",
-                      border: "1px solid var(--d-border)",
-                      color: "var(--d-ink)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                    placeholder="Tell us about your matter..."
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="w-full py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 hover:brightness-110"
-                  style={{
-                    backgroundColor: "var(--d-accent)",
-                    color: "var(--d-navy)",
-                    fontFamily: "'Inter', sans-serif",
-                  }}
-                >
-                  Send Message
-                </button>
-              </div>
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              )}
             </motion.div>
           </div>
         </div>

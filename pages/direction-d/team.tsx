@@ -7,19 +7,28 @@ import type { NextPageWithLayout } from "../_app";
 
 const attorneys = [
   {
-    name: "Brandon Wade",
+    name: "Nicole Jennings Wade",
     title: "Partner",
-    bio: "Brandon Wade focuses his practice on complex commercial litigation, defamation, and reputation defense. He has represented individuals and companies in high-profile disputes across the country and is recognized by Best Lawyers in America.",
+    areas: ["Defamation", "Business Litigation"],
+    bio: "Nicole Jennings Wade focuses her practice on complex commercial litigation, defamation, and reputation defense. She has represented individuals and companies in high-profile disputes across the country and is recognized by Best Lawyers in America.",
   },
   {
-    name: "David Grunberg",
+    name: "Jonathan Grunberg",
     title: "Partner",
-    bio: "David Grunberg brings extensive experience in trust and estate litigation, fiduciary disputes, and business litigation. His strategic approach and attention to detail have earned the trust of clients facing their most consequential legal matters.",
+    areas: ["Trust & Estate", "Business Litigation"],
+    bio: "Jonathan Grunberg brings extensive experience in trust and estate litigation, fiduciary disputes, and business litigation. His strategic approach and attention to detail have earned the trust of clients facing their most consequential legal matters.",
   },
   {
-    name: "Robert Wilson",
+    name: "G. Taylor Wilson",
     title: "Partner",
-    bio: "Robert Wilson concentrates on personal injury, civil rights litigation, and appellate advocacy. Known for thorough preparation and persuasive courtroom presence, he has secured significant results for individuals and families.",
+    areas: ["Personal Injury", "Civil Rights"],
+    bio: "G. Taylor Wilson concentrates on personal injury, civil rights litigation, and appellate advocacy. Known for thorough preparation and persuasive courtroom presence, he has secured significant results for individuals and families.",
+  },
+  {
+    name: "Christina Mattox",
+    title: "Associate",
+    areas: ["Appellate Advocacy", "Civil Rights"],
+    bio: "Christina Mattox focuses on appellate advocacy and civil rights litigation. Her meticulous research and persuasive writing have contributed to successful outcomes in both state and federal courts.",
   },
 ];
 
@@ -84,7 +93,7 @@ const TeamPage: NextPageWithLayout = () => {
         style={{ backgroundColor: "var(--d-bg)" }}
       >
         <div className="max-w-[1120px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {attorneys.map((attorney, i) => (
               <motion.div
                 key={attorney.name}
@@ -110,7 +119,7 @@ const TeamPage: NextPageWithLayout = () => {
                   {attorney.name}
                 </h2>
                 <p
-                  className="text-sm font-medium mb-4"
+                  className="text-sm font-medium mb-3"
                   style={{
                     color: "var(--d-accent)",
                     fontFamily: "'Inter', sans-serif",
@@ -118,6 +127,21 @@ const TeamPage: NextPageWithLayout = () => {
                 >
                   {attorney.title}
                 </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {attorney.areas.map((area) => (
+                    <span
+                      key={area}
+                      className="px-2.5 py-0.5 text-xs font-medium tracking-wide rounded-full"
+                      style={{
+                        border: "1px solid var(--d-border)",
+                        color: "var(--d-muted)",
+                        fontFamily: "'Inter', sans-serif",
+                      }}
+                    >
+                      {area}
+                    </span>
+                  ))}
+                </div>
                 <p
                   className="text-sm leading-relaxed"
                   style={{

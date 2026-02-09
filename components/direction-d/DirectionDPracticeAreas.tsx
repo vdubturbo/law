@@ -107,7 +107,7 @@ export default function DirectionDPracticeAreas() {
                 {area.description}
               </p>
               <Link
-                href={`/practices/${area.slug}`}
+                href={`/direction-d/practices/${area.slug}`}
                 className="text-sm font-medium tracking-wide transition-colors duration-300 group-hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57]"
                 style={{
                   color: "var(--d-accent)",

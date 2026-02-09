@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/direction-d/about", label: "About" },
   { href: "/direction-d/team", label: "Team" },
   { href: "/direction-d/practices", label: "Practice Areas" },
+  { href: "/direction-d/cases", label: "Case Results" },
   { href: "/direction-d/contact", label: "Contact" },
 ];
 
