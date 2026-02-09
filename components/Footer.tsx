@@ -98,7 +98,8 @@ export default function Footer() {
                   alt="Best Lawyers"
                   width={140}
                   height={42}
-                  className="brightness-0 invert opacity-80"
+                  style={{ height: "auto" }}
+                  className="opacity-90"
                 />
               </a>
               <p>

@@ -75,6 +75,7 @@ const HomePage: NextPageWithLayout = () => {
                   alt="Best Lawyers"
                   width={200}
                   height={61}
+                  style={{ height: "auto" }}
                 />
               </a>
             </motion.div>

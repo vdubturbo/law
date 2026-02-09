@@ -95,6 +95,7 @@ export default function About() {
                   alt="Best Lawyers"
                   width={180}
                   height={55}
+                  style={{ height: "auto" }}
                 />
               </a>
               <p

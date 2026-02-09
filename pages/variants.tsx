@@ -208,6 +208,7 @@ export default function Variants() {
               alt="Best Lawyers"
               width={180}
               height={55}
+              style={{ height: "auto" }}
               className="mx-auto"
             />
           </a>

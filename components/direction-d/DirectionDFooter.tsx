@@ -42,7 +42,8 @@ export default function DirectionDFooter() {
                 alt="Best Lawyers"
                 width={120}
                 height={36}
-                className="brightness-0 invert opacity-60"
+                style={{ height: "auto" }}
+                className="opacity-80"
               />
             </a>
           </div>
