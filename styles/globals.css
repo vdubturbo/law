@@ -4,6 +4,16 @@
 
 /* Smooth page transitions */
 @layer base {
+  :root {
+    --d-bg: #F8F6F3;
+    --d-ink: #1C1C1E;
+    --d-muted: #71717A;
+    --d-surface: #EFECE7;
+    --d-navy: #1B2A3D;
+    --d-accent: #B08D57;
+    --d-border: #E2DDD5;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
