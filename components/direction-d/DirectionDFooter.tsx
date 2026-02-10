@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const quickLinks = [
   { href: "/direction-d/about", label: "About" },
@@ -10,6 +11,9 @@ const quickLinks = [
 ];
 
 export default function DirectionDFooter() {
+  const router = useRouter();
+  const isA2 = router.query.v === "a2";
+
   return (
     <footer
       style={{
@@ -21,13 +25,26 @@ export default function DirectionDFooter() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Firm */}
           <div>
-            <h3
-              className="text-xl font-bold text-white mb-4"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              Wade, Grunberg{" "}
-              <span style={{ color: "var(--d-accent)" }}>&amp;</span> Wilson
-            </h3>
+            {isA2 ? (
+              <div className="mb-4">
+                <Image
+                  src="/logo.svg"
+                  alt="Wade, Grunberg & Wilson"
+                  width={180}
+                  height={56}
+                  style={{ height: "auto" }}
+                  className="w-auto"
+                />
+              </div>
+            ) : (
+              <h3
+                className="text-xl font-bold text-white mb-4"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                Wade, Grunberg{" "}
+                <span style={{ color: "var(--d-accent)" }}>&amp;</span> Wilson
+              </h3>
+            )}
             <p className="text-sm text-white/60 leading-relaxed mb-4">
               Boutique litigation counsel in Atlanta, Georgia.
             </p>
