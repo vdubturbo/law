@@ -45,7 +45,7 @@ export default function Variants() {
         style={{ height: "clamp(300px, 50vw, 500px)" }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=400&fit=crop"
+          src="/building.svg"
           alt="Modern glass skyscraper"
           fill
           priority

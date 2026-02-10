@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { motion, useReducedMotion } from "framer-motion";
 
 export default function DirectionDHero() {
+  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
+  const isA2 = router.query.v === "a2";
 
   const fadeIn = (delay: number = 0) =>
     shouldReduceMotion
@@ -20,7 +23,7 @@ export default function DirectionDHero() {
       style={{ height: "clamp(450px, 60vw, 600px)" }}
     >
       <Image
-        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=600&fit=crop"
+        src={isA2 ? "/building.svg" : "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=600&fit=crop"}
         alt="Atlanta skyline"
         fill
         priority

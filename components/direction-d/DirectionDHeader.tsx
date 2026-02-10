@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useVariant } from "@/context/VariantContext";
@@ -15,14 +16,20 @@ const navLinks = [
 ];
 
 /**
- * Direction A = this layout (the default).
+ * Direction A  = default layout, stock photo hero.
+ * Direction A2 = default layout, building.svg hero.
  * Directions B/C/D map to internal variant keys A/B/C respectively.
  */
-const directionOptions = [
-  { key: "A", label: "Direction A", variantKey: null },
-  { key: "B", label: "Direction B", variantKey: "A" as VariantKey },
-  { key: "C", label: "Direction C", variantKey: "B" as VariantKey },
-  { key: "D", label: "Direction D", variantKey: "C" as VariantKey },
+type DirectionOption =
+  | { key: string; label: string; kind: "default"; query?: string }
+  | { key: string; label: string; kind: "variant"; variantKey: VariantKey };
+
+const directionOptions: DirectionOption[] = [
+  { key: "A",  label: "Direction A",  kind: "default" },
+  { key: "A2", label: "Direction A2", kind: "default", query: "a2" },
+  { key: "B",  label: "Direction B",  kind: "variant", variantKey: "A" as VariantKey },
+  { key: "C",  label: "Direction C",  kind: "variant", variantKey: "B" as VariantKey },
+  { key: "D",  label: "Direction D",  kind: "variant", variantKey: "C" as VariantKey },
 ];
 
 export default function DirectionDHeader() {
@@ -30,10 +37,17 @@ export default function DirectionDHeader() {
   const router = useRouter();
   const { setVariant } = useVariant();
 
-  const handleDirectionClick = (option: typeof directionOptions[number]) => {
-    if (option.variantKey === null) return; // Already on Direction A
-    setVariant(option.variantKey);
-    router.push("/variants");
+  const currentQuery = (router.query.v as string) || undefined;
+
+  const handleDirectionClick = (option: DirectionOption) => {
+    if (option.kind === "default") {
+      const target = option.query ? `/?v=${option.query}` : "/";
+      if (router.pathname === "/" && currentQuery === option.query) return;
+      router.push(target);
+    } else {
+      setVariant(option.variantKey);
+      router.push("/variants");
+    }
   };
 
   return (
@@ -55,7 +69,10 @@ export default function DirectionDHeader() {
           aria-label="Design direction switcher"
         >
           {directionOptions.map((option) => {
-            const isActive = option.variantKey === null;
+            const isActive =
+              option.kind === "default" &&
+              router.pathname === "/" &&
+              currentQuery === option.query;
             return (
               <button
                 key={option.key}
@@ -94,24 +111,36 @@ export default function DirectionDHeader() {
         }}
       >
         <div className="max-w-[1120px] mx-auto px-6 md:px-10">
-          <div className="flex items-center justify-between h-20">
-            {/* Wordmark */}
+          <div className={`flex items-center h-20 ${currentQuery === "a2" ? "gap-[7.5rem]" : "justify-between"}`}>
+            {/* Wordmark / Logo */}
             <Link
-              href="/"
+              href={currentQuery === "a2" ? "/?v=a2" : "/"}
               className="flex items-center group"
             >
-              <span
-                className="text-xl md:text-2xl font-bold tracking-tight text-white transition-opacity duration-300 group-hover:opacity-80"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Wade, Grunberg{" "}
-                <span style={{ color: "var(--d-accent)" }}>&amp;</span> Wilson
-              </span>
+              {currentQuery === "a2" ? (
+                <Image
+                  src="/logo.svg"
+                  alt="Wade, Grunberg & Wilson"
+                  width={270}
+                  height={84}
+                  style={{ height: "auto", maxHeight: "4.5rem" }}
+                  className="transition-opacity duration-300 group-hover:opacity-80 w-auto"
+                  priority
+                />
+              ) : (
+                <span
+                  className="text-xl md:text-2xl font-bold tracking-tight text-white transition-opacity duration-300 group-hover:opacity-80"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                >
+                  Wade, Grunberg{" "}
+                  <span style={{ color: "var(--d-accent)" }}>&amp;</span> Wilson
+                </span>
+              )}
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => {
+            <div className={`hidden lg:flex items-center ${currentQuery === "a2" ? "gap-10" : "gap-7"}`}>
+              {navLinks.map((link, i) => {
                 const isActive =
                   link.href === "/"
                     ? router.pathname === "/"
@@ -120,7 +149,7 @@ export default function DirectionDHeader() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="relative text-sm font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B2A3D]"
+                    className={`relative text-sm font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B2A3D]${i === 0 && currentQuery !== "a2" ? " ml-3" : ""}`}
                     style={{
                       color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.65)",
                     }}
@@ -145,16 +174,6 @@ export default function DirectionDHeader() {
                   </Link>
                 );
               })}
-              <Link
-                href="/direction-d/contact"
-                className="ml-2 px-5 py-2 text-xs font-semibold tracking-wider transition-all duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57]"
-                style={{
-                  backgroundColor: "var(--d-accent)",
-                  color: "var(--d-navy)",
-                }}
-              >
-                Begin a Conversation
-              </Link>
             </div>
 
             {/* Mobile Toggle */}
@@ -211,17 +230,6 @@ export default function DirectionDHeader() {
                     {link.label}
                   </Link>
                 ))}
-                <Link
-                  href="/direction-d/contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="inline-block mt-2 px-5 py-2.5 text-xs font-semibold tracking-wider text-center"
-                  style={{
-                    backgroundColor: "var(--d-accent)",
-                    color: "var(--d-navy)",
-                  }}
-                >
-                  Begin a Conversation
-                </Link>
               </div>
             </motion.div>
           )}
