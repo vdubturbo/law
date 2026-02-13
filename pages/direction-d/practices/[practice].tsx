@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { useRouter } from "next/router";
+import type { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
@@ -54,12 +54,19 @@ const practiceData: Record<
   },
 };
 
-const PracticeDetailPage: NextPageWithLayout = () => {
-  const router = useRouter();
-  const { practice } = router.query;
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: Object.keys(practiceData).map((slug) => ({ params: { practice: slug } })),
+  fallback: false,
+});
+
+export const getStaticProps: GetStaticProps = async ({ params }) => ({
+  props: { practice: params?.practice as string },
+});
+
+const PracticeDetailPage: NextPageWithLayout<{ practice: string }> = ({ practice }) => {
   const shouldReduceMotion = useReducedMotion();
 
-  const slug = typeof practice === "string" ? practice : "";
+  const slug = practice;
   const data = practiceData[slug];
 
   const fadeIn = (delay: number = 0) =>

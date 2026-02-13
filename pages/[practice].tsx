@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import type { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useVariant } from "@/context/VariantContext";
@@ -93,12 +93,19 @@ const practiceData: Record<
   },
 };
 
-export default function PracticeDetail() {
-  const router = useRouter();
-  const { practice } = router.query;
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: Object.keys(practiceData).map((slug) => ({ params: { practice: slug } })),
+  fallback: false,
+});
+
+export const getStaticProps: GetStaticProps = async ({ params }) => ({
+  props: { practice: params?.practice as string },
+});
+
+export default function PracticeDetail({ practice }: { practice: string }) {
   const { theme } = useVariant();
 
-  const slug = typeof practice === "string" ? practice : "";
+  const slug = practice;
   const data = practiceData[slug];
 
   if (!data) {
