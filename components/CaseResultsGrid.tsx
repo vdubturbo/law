@@ -1,12 +1,22 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import type { CaseRow } from "@/lib/database.types";
 
-export interface CaseResult {
-  title: string;
-  result: string;
-  area: string;
-  summary: string;
-  slug: string;
+export type CaseResult = CaseRow;
+
+function practiceAreaToSlug(area: string): string {
+  const mapping: Record<string, string> = {
+    "Defamation": "defamation",
+    "Defamation & Reputation Defense": "defamation",
+    "Business Litigation": "business-litigation",
+    "Complex Business Disputes": "business-litigation",
+    "Trust & Estate Litigation": "trust-estate-litigation",
+    "Personal Injury": "personal-injury",
+    "Civil Rights Litigation": "civil-rights",
+    "Civil Rights": "civil-rights",
+    "Appellate Advocacy": "appellate",
+  };
+  return mapping[area] ?? "defamation";
 }
 
 interface CaseResultsGridProps {
@@ -27,10 +37,11 @@ export default function CaseResultsGrid({ cases, variant = "direction-d", theme 
     <div className="columns-1 md:columns-2 gap-6 space-y-6">
       {cases.map((c, i) => {
         const delay = shouldReduceMotion ? 0 : 0.1 + i * 0.1;
+        const slug = practiceAreaToSlug(c.practice_area);
 
         return (
           <motion.div
-            key={c.slug}
+            key={c.id}
             initial={shouldReduceMotion ? undefined : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay, ease: "easeOut" }}
@@ -65,12 +76,12 @@ export default function CaseResultsGrid({ cases, variant = "direction-d", theme 
                     }
               }
             >
-              {c.area}
+              {c.practice_area}
             </span>
 
-            {/* Result highlight */}
+            {/* Outcome highlight */}
             <p
-              className="text-[28px] md:text-[34px] font-bold tracking-tight mb-2"
+              className="text-[28px] md:text-[34px] font-bold tracking-tight mb-1"
               style={
                 isD
                   ? {
@@ -83,12 +94,24 @@ export default function CaseResultsGrid({ cases, variant = "direction-d", theme 
                     }
               }
             >
-              {c.result}
+              {c.outcome}
+            </p>
+
+            {/* Outcome type */}
+            <p
+              className="text-xs font-medium tracking-wider uppercase mb-4"
+              style={
+                isD
+                  ? { color: "var(--d-muted)", fontFamily: "'Inter', sans-serif" }
+                  : { color: theme?.colors.muted, fontFamily: theme?.fonts.body }
+              }
+            >
+              {c.outcome_type}
             </p>
 
             {/* Case title */}
             <h3
-              className="text-lg font-semibold mb-3 tracking-tight"
+              className="text-lg font-semibold mb-1 tracking-tight"
               style={
                 isD
                   ? {
@@ -104,27 +127,41 @@ export default function CaseResultsGrid({ cases, variant = "direction-d", theme 
               {c.title}
             </h3>
 
-            {/* Summary */}
+            {/* Court + Date */}
             <p
-              className="text-sm leading-relaxed mb-4"
+              className="text-xs mb-3"
               style={
                 isD
-                  ? {
-                      color: "var(--d-muted)",
-                      fontFamily: "'Inter', sans-serif",
-                    }
-                  : {
-                      color: theme?.colors.muted,
-                      fontFamily: theme?.fonts.body,
-                    }
+                  ? { color: "var(--d-muted)", fontFamily: "'Inter', sans-serif" }
+                  : { color: theme?.colors.muted, fontFamily: theme?.fonts.body }
               }
             >
-              {c.summary}
+              {c.court}{c.date ? ` \u2022 ${c.date}` : ""}
             </p>
+
+            {/* Description */}
+            {c.description && (
+              <p
+                className="text-sm leading-relaxed mb-4"
+                style={
+                  isD
+                    ? {
+                        color: "var(--d-muted)",
+                        fontFamily: "'Inter', sans-serif",
+                      }
+                    : {
+                        color: theme?.colors.muted,
+                        fontFamily: theme?.fonts.body,
+                      }
+                }
+              >
+                {c.description}
+              </p>
+            )}
 
             {/* Link */}
             <Link
-              href={`/direction-d/practices/${c.slug}`}
+              href={`/direction-d/practices/${slug}`}
               className="text-sm font-medium tracking-wide transition-colors duration-300 group-hover:underline"
               style={
                 isD
