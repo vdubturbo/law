@@ -18,18 +18,16 @@ const navLinks = [
 /**
  * Direction A  = default layout, stock photo hero.
  * Direction A2 = default layout, building.svg hero.
- * Directions B/C/D map to internal variant keys A/B/C respectively.
+ * Direction B  maps to internal variant key A.
  */
 type DirectionOption =
   | { key: string; label: string; kind: "default"; query?: string }
   | { key: string; label: string; kind: "variant"; variantKey: VariantKey };
 
 const directionOptions: DirectionOption[] = [
-  { key: "A",  label: "Direction A",  kind: "default" },
-  { key: "A2", label: "Direction A2", kind: "default", query: "a2" },
-  { key: "B",  label: "Direction B",  kind: "variant", variantKey: "A" as VariantKey },
-  { key: "C",  label: "Direction C",  kind: "variant", variantKey: "B" as VariantKey },
-  { key: "D",  label: "Direction D",  kind: "variant", variantKey: "C" as VariantKey },
+  { key: "A",  label: "Option A",  kind: "default" },
+  { key: "A2", label: "Option B",  kind: "default", query: "a2" },
+  { key: "B",  label: "Option C",  kind: "variant", variantKey: "A" as VariantKey },
 ];
 
 export default function DirectionDHeader() {
@@ -60,9 +58,6 @@ export default function DirectionDHeader() {
           fontFamily: "'Inter', sans-serif",
         }}
       >
-        <span className="text-xs font-medium text-white/50 mr-3 hidden sm:inline">
-          Design Direction:
-        </span>
         <div
           className="flex gap-2"
           role="tablist"
@@ -97,9 +92,6 @@ export default function DirectionDHeader() {
             );
           })}
         </div>
-        <span className="text-xs text-white/40 ml-3 hidden sm:inline">
-          Modern Personal Boutique
-        </span>
       </div>
 
       {/* Navigation */}

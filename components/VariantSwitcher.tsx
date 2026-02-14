@@ -5,12 +5,10 @@ import { VariantKey, variants } from "@/utils/variants";
 
 /**
  * Direction A = the default layout (lives at /).
- * Directions B/C/D map to internal variant keys A/B/C respectively.
+ * Direction B maps to internal variant key A.
  */
 const variantOptions: { directionLabel: string; variantKey: VariantKey }[] = [
-  { directionLabel: "Direction B", variantKey: "A" },
-  { directionLabel: "Direction C", variantKey: "B" },
-  { directionLabel: "Direction D", variantKey: "C" },
+  { directionLabel: "Option C", variantKey: "A" },
 ];
 
 export default function VariantSwitcher() {
@@ -25,9 +23,6 @@ export default function VariantSwitcher() {
         fontFamily: theme.fonts.body,
       }}
     >
-      <span className="text-xs font-medium text-white/50 mr-3 hidden sm:inline">
-        Design Direction:
-      </span>
       <div className="flex gap-2" role="tablist" aria-label="Design direction switcher">
         {/* Direction A — navigates to default layout */}
         <button
@@ -37,10 +32,21 @@ export default function VariantSwitcher() {
           role="tab"
           aria-selected={false}
         >
-          <span className="relative z-10">Direction A</span>
+          <span className="relative z-10">Option A</span>
         </button>
 
-        {/* Directions B/C/D — switch between variant keys A/B/C */}
+        {/* Direction A2 — navigates to default layout with building.svg hero */}
+        <button
+          onClick={() => router.push("/?v=a2")}
+          className="relative px-4 py-1.5 text-xs font-medium tracking-wide transition-all duration-300"
+          style={{ color: "rgba(255,255,255,0.5)" }}
+          role="tab"
+          aria-selected={false}
+        >
+          <span className="relative z-10">Option B</span>
+        </button>
+
+        {/* Direction B — variant key A */}
         {variantOptions.map(({ directionLabel, variantKey }) => {
           const isActive = activeVariant === variantKey;
           const v = variants[variantKey];
@@ -68,9 +74,6 @@ export default function VariantSwitcher() {
           );
         })}
       </div>
-      <span className="text-xs text-white/40 ml-3 hidden sm:inline">
-        {theme.name}
-      </span>
     </div>
   );
 }

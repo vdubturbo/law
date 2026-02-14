@@ -1,4 +1,4 @@
-export type VariantKey = "A" | "B" | "C";
+export type VariantKey = "A";
 
 export interface VariantTheme {
   key: VariantKey;
@@ -51,56 +51,6 @@ export const variants: Record<VariantKey, VariantTheme> = {
       muted: "va-muted",
       headingFont: "font-playfair",
       bodyFont: "font-inter",
-    },
-  },
-  B: {
-    key: "B",
-    name: "Modern Professional",
-    description: "Contemporary, balanced, approachable",
-    colors: {
-      primary: "#2C3E50",
-      accent: "#4A6B5E",
-      background: "#ECF0F1",
-      text: "#1A1A1A",
-      muted: "#6B7280",
-    },
-    fonts: {
-      heading: "'EB Garamond', serif",
-      body: "'Open Sans', sans-serif",
-    },
-    tw: {
-      primary: "vb-primary",
-      accent: "vb-accent",
-      bg: "vb-bg",
-      text: "vb-text",
-      muted: "vb-muted",
-      headingFont: "font-garamond",
-      bodyFont: "font-open-sans",
-    },
-  },
-  C: {
-    key: "C",
-    name: "Sophisticated Warm",
-    description: "Modern-bold, warm, distinctive",
-    colors: {
-      primary: "#1F2937",
-      accent: "#9B7653",
-      background: "#F9F8F6",
-      text: "#1A1A1A",
-      muted: "#6B7280",
-    },
-    fonts: {
-      heading: "'Syne', sans-serif",
-      body: "'Roboto', sans-serif",
-    },
-    tw: {
-      primary: "vc-primary",
-      accent: "vc-accent",
-      bg: "vc-bg",
-      text: "vc-text",
-      muted: "vc-muted",
-      headingFont: "font-syne",
-      bodyFont: "font-roboto",
     },
   },
 };
