@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useVariant } from "@/context/VariantContext";
@@ -26,38 +27,38 @@ export default function Navigation() {
         fontFamily: theme.fonts.body,
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-[1120px] mx-auto px-6 md:px-10">
+        <div className="flex items-center h-20 gap-[7.5rem]">
           {/* Logo / Firm Name */}
           <Link href="/" className="flex items-center gap-3 group">
-            <span
-              className="text-h4 md:text-h3 font-bold tracking-tight transition-opacity duration-300 group-hover:opacity-80"
-              style={{
-                color: "#FFFFFF",
-                fontFamily: theme.fonts.heading,
-              }}
-            >
-              Wade, Grunberg <span style={{ color: theme.colors.accent }}>&amp;</span> Wilson
-            </span>
+            <Image
+              src="/logo.svg"
+              alt="Wade, Grunberg & Wilson"
+              width={270}
+              height={84}
+              style={{ height: "auto", maxHeight: "4.5rem" }}
+              className="transition-opacity duration-300 group-hover:opacity-80 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => {
               const isActive = router.pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative text-small font-medium tracking-wide transition-all duration-300"
+                  className="relative text-sm font-medium tracking-wide transition-colors duration-300"
                   style={{
-                    color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.7)",
+                    color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.65)",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) e.currentTarget.style.color = "#FFFFFF";
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.color = "rgba(255,255,255,0.7)";
+                    if (!isActive) e.currentTarget.style.color = "rgba(255,255,255,0.65)";
                   }}
                 >
                   {link.label}
@@ -76,7 +77,7 @@ export default function Navigation() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="lg:hidden flex flex-col gap-1.5 p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57]"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle navigation menu"
           >
@@ -104,7 +105,7 @@ export default function Navigation() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden"
+            className="lg:hidden overflow-hidden"
             style={{ backgroundColor: theme.colors.primary }}
           >
             <div className="px-6 pb-6 flex flex-col gap-4">
@@ -115,9 +116,9 @@ export default function Navigation() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="text-body font-medium tracking-wide transition-colors duration-300"
+                    className="text-base font-medium tracking-wide transition-colors duration-300"
                     style={{
-                      color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.7)",
+                      color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.65)",
                     }}
                   >
                     {link.label}

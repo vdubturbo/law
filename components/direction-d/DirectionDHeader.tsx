@@ -103,35 +103,25 @@ export default function DirectionDHeader() {
         }}
       >
         <div className="max-w-[1120px] mx-auto px-6 md:px-10">
-          <div className={`flex items-center h-20 ${currentQuery === "a2" ? "gap-[7.5rem]" : "justify-between"}`}>
+          <div className={`flex items-center h-20 gap-[7.5rem]`}>
             {/* Wordmark / Logo */}
             <Link
               href={currentQuery === "a2" ? "/?v=a2" : "/"}
               className="flex items-center group"
             >
-              {currentQuery === "a2" ? (
-                <Image
-                  src="/logo.svg"
-                  alt="Wade, Grunberg & Wilson"
-                  width={270}
-                  height={84}
-                  style={{ height: "auto", maxHeight: "4.5rem" }}
-                  className="transition-opacity duration-300 group-hover:opacity-80 w-auto"
-                  priority
-                />
-              ) : (
-                <span
-                  className="text-xl md:text-2xl font-bold tracking-tight text-white transition-opacity duration-300 group-hover:opacity-80"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Wade, Grunberg{" "}
-                  <span style={{ color: "var(--d-accent)" }}>&amp;</span> Wilson
-                </span>
-              )}
+              <Image
+                src="/logo.svg"
+                alt="Wade, Grunberg & Wilson"
+                width={270}
+                height={84}
+                style={{ height: "auto", maxHeight: "4.5rem" }}
+                className="transition-opacity duration-300 group-hover:opacity-80 w-auto"
+                priority
+              />
             </Link>
 
             {/* Desktop Nav */}
-            <div className={`hidden lg:flex items-center ${currentQuery === "a2" ? "gap-10" : "gap-7"}`}>
+            <div className={`hidden lg:flex items-center gap-10`}>
               {navLinks.map((link, i) => {
                 const isActive =
                   link.href === "/"
@@ -141,7 +131,7 @@ export default function DirectionDHeader() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative text-sm font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B2A3D]${i === 0 && currentQuery !== "a2" ? " ml-3" : ""}`}
+                    className="relative text-sm font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B2A3D]"
                     style={{
                       color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.65)",
                     }}
